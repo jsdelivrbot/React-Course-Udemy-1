@@ -4,7 +4,7 @@ import YTSearch from 'youtube-api-search';
 import SearchBar from './components/search_bar';
 import VideoList from './components/video_list';
 import VideoDetail from './components/video_detail'
-const API_KEY = '';
+const API_KEY = 'AIzaSyDNaKyh8tl3o5Ak_Pj7wrIaWbTvDY6qCE8';
 
 // Create a new component, this component should produce some HTML
 class App extends Component {
@@ -15,8 +15,11 @@ class App extends Component {
       videos: [],
       selectedVideo: null 
     };
-    
-    YTSearch({key: API_KEY, term: 'dogs'}, (videos) => {
+    this.videoSearch('surfboards');
+  }
+  
+  videoSearch(term) {
+    YTSearch({key: API_KEY, term: term}, (videos) => {
       this.setState({ 
         videos: videos,
         selectedVideo: videos[0]
@@ -27,7 +30,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <SearchBar />
+        <SearchBar onSearchTermChange={term => this.videoSearch(term)} />
         <VideoDetail video={this.state.selectedVideo}/>
         <VideoList 
         onVideoSelect={ selectedVideo => this.setState({selectedVideo})}
